@@ -159,7 +159,7 @@ class AnunciosController extends Controller
         {
             $init = new RelatorioCargaXml();
             $init->anunciante_id = $anuncianteId;
-            $init->erro = 'Carga Iniciada';
+            $init->mensagem = 'Carga Iniciada';
             $init->carga_imovel_id= $validaCamposObrigatorios->codigoImovel;
             $init->save();
         }
@@ -169,7 +169,7 @@ class AnunciosController extends Controller
             {
                 $erro = new RelatorioCargaXml();
                 $erro->anunciante_id = $anuncianteId;
-                $erro->erro=$validaCamposObrigatorios->mensagem;
+                $erro->mensagem=$validaCamposObrigatorios->mensagem;
                 $erro->carga_imovel_id= $validaCamposObrigatorios->codigoImovel;
                 $erro->save();
             }
@@ -180,7 +180,7 @@ class AnunciosController extends Controller
         {
             $erro = new RelatorioCargaXml();
             $erro->anunciante_id = $anuncianteId;
-            $erro->erro=$cidadeEstado->mensagem;
+            $erro->mensagem=$cidadeEstado->mensagem;
             $erro->carga_imovel_id= $validaCamposObrigatorios->codigoImovel;
             $erro->save();
             return  0;
@@ -190,7 +190,7 @@ class AnunciosController extends Controller
         {
             $erro = new RelatorioCargaXml();
             $erro->anunciante_id = $anuncianteId;
-            $erro->erro="Tipo de Imóvel não encontrado";
+            $erro->mensagem="Tipo de Imóvel não encontrado";
             $erro->carga_imovel_id= $validaCamposObrigatorios->codigoImovel;
             $erro->save();
             return  0;
@@ -239,7 +239,7 @@ class AnunciosController extends Controller
         {
             $erro = new RelatorioCargaXml();
             $erro->anunciante_id = $anuncianteId;
-            $erro->erro=$e;
+            $erro->mensagem=$e;
             $erro->carga_imovel_id= $validaCamposObrigatorios->codigoImovel;
             $erro->save();
 
@@ -277,7 +277,7 @@ class AnunciosController extends Controller
             {
                 $erro = new RelatorioCargaXml();
                 $erro->anunciante_id = $anuncianteId;
-                $erro->erro=$e;
+                $erro->mensagem=$e;
                 $erro->carga_imovel_id= $codigoImovel;
                 $erro->save();
 
@@ -287,7 +287,7 @@ class AnunciosController extends Controller
         }
         $end = new RelatorioCargaXml();
         $end->anunciante_id = $anuncianteId;
-        $end->erro = 'Carga Finalizada';
+        $end->mensagem = 'Carga Finalizada';
         $end->carga_imovel_id= $codigoImovel;
         $end->save();
         return;

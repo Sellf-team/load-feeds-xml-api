@@ -28,7 +28,7 @@ class RelatorioCargaXml extends Model
     public $fillable = [
         'carga_imovel_id',
         'anunciante_id',
-        'erro',
+        'mensagem',
         'created_at',
         'updated_at'
     ];
@@ -42,7 +42,7 @@ class RelatorioCargaXml extends Model
         'id' => 'integer',
         'carga_imovel_id' => 'integer',
         'anunciante_id' => 'integer',
-        'erro' => 'string',
+        'mensagem' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
@@ -55,7 +55,7 @@ class RelatorioCargaXml extends Model
     public static $rules = [
         'carga_imovel_id' => 'required',
         'anunciante_id' => 'required',
-        'erro' => 'required',
+        'mensagem' => 'required',
         'created_at' => 'required',
         'updated_at' => 'required'
     ];
