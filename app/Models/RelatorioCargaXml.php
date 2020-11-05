@@ -41,7 +41,7 @@ class RelatorioCargaXml extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'carga_imovel_id' => 'integer',
+        'carga_imovel_id' => 'string',
         'anunciante_id' => 'integer',
         'mensagem' => 'string',
         'code_error' => 'integer',
