@@ -96,6 +96,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $tipo_anuncio_id
  * @property integer $usr_alteracao
  * @property integer $id_imovel_integracao
+ * @property integer $flag_exclusao
  */
 class SfAnuncio extends Model
 {
@@ -195,7 +196,8 @@ class SfAnuncio extends Model
         'data_premiacao',
         'tipo_anuncio_id',
         'usr_alteracao',
-        'id_imovel_integracao'
+        'id_imovel_integracao',
+        'flag_exclusao'
     ];
 
     /**
@@ -292,7 +294,8 @@ class SfAnuncio extends Model
         'data_premiacao' => 'datetime',
         'tipo_anuncio_id' => 'integer',
         'usr_alteracao' => 'integer',
-        'id_imovel_integracao' => 'integer'
+        'id_imovel_integracao' => 'integer',
+        'flag_exclusao' => 'integer'
     ];
 
     /**

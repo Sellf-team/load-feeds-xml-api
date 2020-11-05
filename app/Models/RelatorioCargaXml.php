@@ -29,6 +29,7 @@ class RelatorioCargaXml extends Model
         'carga_imovel_id',
         'anunciante_id',
         'mensagem',
+        'code_error',
         'created_at',
         'updated_at'
     ];
@@ -43,6 +44,7 @@ class RelatorioCargaXml extends Model
         'carga_imovel_id' => 'integer',
         'anunciante_id' => 'integer',
         'mensagem' => 'string',
+        'code_error' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
@@ -56,6 +58,7 @@ class RelatorioCargaXml extends Model
         'carga_imovel_id' => 'required',
         'anunciante_id' => 'required',
         'mensagem' => 'required',
+        'code_error' => 'required',
         'created_at' => 'required',
         'updated_at' => 'required'
     ];
