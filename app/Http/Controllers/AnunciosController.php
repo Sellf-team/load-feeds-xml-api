@@ -156,6 +156,8 @@ class AnunciosController extends Controller
     {        
         if($data->TipoImovel == "Comercial/Industrial"){
             return 6;
+        }else if($data->TipoImovel == "Terreno"){
+            return 12;
         }else{            
             $tipoImovel = TipoImovel::where('nome', $data->TipoImovel)->first();
             return $tipoImovel->id;
