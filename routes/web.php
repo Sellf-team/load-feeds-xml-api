@@ -20,5 +20,3 @@ app()->router->get('/', [
 /*$router->get('/', function () use ($router) {
     return $router->app->version();
 });*/
-
-

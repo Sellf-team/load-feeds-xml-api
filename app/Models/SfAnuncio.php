@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class SfAnuncio
@@ -97,6 +98,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $usr_alteracao
  * @property integer $id_imovel_integracao
  * @property integer $flag_exclusao
+ * @property integer $flag_anunciar
  */
 class SfAnuncio extends Model
 {
@@ -197,7 +199,8 @@ class SfAnuncio extends Model
         'tipo_anuncio_id',
         'usr_alteracao',
         'id_imovel_integracao',
-        'flag_exclusao'
+        'flag_exclusao',
+        'flag_anunciar'
     ];
 
     /**
@@ -295,7 +298,8 @@ class SfAnuncio extends Model
         'tipo_anuncio_id' => 'integer',
         'usr_alteracao' => 'integer',
         'id_imovel_integracao' => 'integer',
-        'flag_exclusao' => 'integer'
+        'flag_exclusao' => 'integer',
+        'flag_anunciar' => 'integer'
     ];
 
     /**
@@ -306,6 +310,30 @@ class SfAnuncio extends Model
     public static $rules = [
 
     ];
+
+    public static function getAnunciosByProperties($anuncianteId, $integracaoId){
+        $ad = DB::table('sf_anuncio')
+            ->select('sf_anuncio.id')
+            ->where('sf_anuncio.anunciante_id', $anuncianteId)
+            ->where('sf_anuncio.id_imovel_integracao', $integracaoId)
+            ->get()
+            ->first();        
+            
+        if(is_null($ad)){
+            return false;
+        }else{
+            return $ad->id;
+        }
+    }
+
+    public static function getAnuncianteDataById($anuncianteId){
+        $advertiser = DB::table('anunciante')
+            ->select('anunciante.email', 'anunciante.nome')
+            ->where('anunciante.id', $anuncianteId)
+            ->get()
+            ->first();   
+        return $advertiser;
+    }
 
 
 }

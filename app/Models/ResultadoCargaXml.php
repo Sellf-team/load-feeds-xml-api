@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 /**
- * Class RelatorioCargaXml
+ * Class ResultadoCargaXml
  * @package App\Models
  * @version November 3, 2020, 3:13 am UTC
  *
@@ -16,10 +15,10 @@ use Illuminate\Support\Facades\DB;
  * @property string|\Carbon\Carbon $created_at
  * @property string|\Carbon\Carbon $updated_at
  */
-class RelatorioCargaXml extends Model
+class ResultadoCargaXml extends Model
 {
 
-    public $table = 'relatorio_carga_xml';
+    public $table = 'resultado_carga_xml';
 
     public $timestamps = true;
 
@@ -27,11 +26,11 @@ class RelatorioCargaXml extends Model
     public $connection = "mysql";
 
     public $fillable = [
-        'resultado_id',
-        'carga_imovel_id',
         'anunciante_id',
-        'mensagem',
-        'code_error',
+        'qtd_excluidos',
+        'qtd_recebidos',
+        'qtd_negados',
+        'flag_enviado',
         'created_at',
         'updated_at'
     ];
@@ -43,11 +42,10 @@ class RelatorioCargaXml extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'resultado_id' => 'integer',
-        'carga_imovel_id' => 'string',
-        'anunciante_id' => 'integer',
-        'mensagem' => 'string',
-        'code_error' => 'integer',
+        'qtd_excluidos' => 'integer',
+        'qtd_recebidos' => 'integer',
+        'qtd_negados' => 'integer',
+        'flag_enviado' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
@@ -58,21 +56,11 @@ class RelatorioCargaXml extends Model
      * @var array
      */
     public static $rules = [
-        'resultado_id' => 'required',
-        'carga_imovel_id' => 'required',
         'anunciante_id' => 'required',
-        'mensagem' => 'required',
-        'code_error' => 'required',
+        'qtd_recebidos' => 'required',
         'created_at' => 'required',
         'updated_at' => 'required'
     ];
 
-    public static function getDetalhesCargaByResultadoId($resultadoCargaId){
-        $details = DB::table('relatorio_carga_xml')
-            ->select('*')
-            ->where('relatorio_carga_xml.resultado_id', $resultadoCargaId)
-            ->where('relatorio_carga_xml.code_error', 0)
-            ->get(); 
-        return $details;
-    }
+
 }
