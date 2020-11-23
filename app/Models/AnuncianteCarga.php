@@ -40,6 +40,7 @@ class AnuncianteCarga extends Model
         'id' => 'integer',
         'anunciante_id' => 'integer',
         'url' => 'string',
+        'flag_leitura' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];

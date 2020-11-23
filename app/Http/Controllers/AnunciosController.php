@@ -36,13 +36,12 @@ class AnunciosController extends Controller
         {
             $retorno .= " Código do imóvel vazio;";
             $flagCodImovel++;
+        }else
+        {
+            $retornoValidacoes->codigoImovel = $data->CodigoImovel;
         }
         if(strlen($data->Observacao) > 3000){
             $retorno .= " A descrição do imóvel deve ter entre 0 e 3000 caracteres;";
-        }
-        else
-        {
-            $retornoValidacoes->codigoImovel = $data->CodigoImovel;
         }
         if(!isset($data->TipoImovel) || $data->TipoImovel == '')
         {
@@ -458,7 +457,7 @@ class AnunciosController extends Controller
     public function leituraXmlZap()
     {
         ini_set('max_execution_time', 72000);
-        $data = AnuncianteCarga::all();
+        $data = AnuncianteCarga::where('flag_leitura', 1)->get();
         $xml_conteudo ='';
         $retorno =0 ;
         for ($i=0;$i<sizeof($data);$i++)
