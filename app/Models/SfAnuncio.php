@@ -96,7 +96,7 @@ use Illuminate\Support\Facades\DB;
  * @property string|\Carbon\Carbon $data_premiacao
  * @property integer $tipo_anuncio_id
  * @property integer $usr_alteracao
- * @property integer $id_imovel_integracao
+ * @property string $id_imovel_integracao
  * @property integer $flag_exclusao
  * @property integer $flag_anunciar
  */
@@ -297,7 +297,7 @@ class SfAnuncio extends Model
         'data_premiacao' => 'datetime',
         'tipo_anuncio_id' => 'integer',
         'usr_alteracao' => 'integer',
-        'id_imovel_integracao' => 'integer',
+        'id_imovel_integracao' => 'string',
         'flag_exclusao' => 'integer',
         'flag_anunciar' => 'integer'
     ];
