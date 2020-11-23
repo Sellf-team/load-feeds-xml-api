@@ -302,6 +302,8 @@ class AnunciosController extends Controller
         $adId = SfAnuncio::getAnunciosByProperties($anuncianteId,'-'.$data->CodigoImovel);
         if(!$adId){
             $anuncio = new SfAnuncio();
+            $anuncio->data_cadastro = date('Y-m-d H:i:s');
+            $anuncio->data_aprovado = date('Y-m-d H:i:s');
         }else{
             $anuncio = SfAnuncio::find($adId);
         }        
@@ -309,7 +311,6 @@ class AnunciosController extends Controller
         $anuncio->flag_exclusao = 0;
         $anuncio->flag_anunciar = 1;
         $anuncio->id_imovel_integracao = '-'.$data->CodigoImovel;
-        $anuncio->data_cadastro = date('Y-m-d H:i:s');
         $anuncio->titulo = $this->removeChar($data->TipoImovel. ' em '. $nomeCidade);
         $anuncio->anunciante_id = $anuncianteId;
         $anuncio->tipo_imovel_id = $tipoImovel;
@@ -317,7 +318,6 @@ class AnunciosController extends Controller
         $anuncio->cidade_id = $idCidade;
         $anuncio->bairro = $data->Bairro;
         $anuncio->logradouro = $data->Endereco;
-        $anuncio->data_aprovado = date('Y-m-d H:i:s');
         $anuncio->numero = $data->Numero;
         $anuncio->complemento = $data->Complemento;
         
