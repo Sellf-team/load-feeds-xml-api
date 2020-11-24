@@ -47,9 +47,9 @@ class AnunciosController extends Controller
         {
             $retorno .= " Tipo do imóvel vazio;";
         }
-        if(!isset($data->CEP) || $data->CEP == ''){
-            if(!isset($data->Cep) || $data->Cep == ''){
-                if(!isset($data->cep) || $data->cep == ''){
+        if(!isset($data->CEP) || $data->CEP == '' || strlen($data->CEP) < 8){
+            if(!isset($data->Cep) || $data->Cep == '' || strlen($data->Cep) < 8){
+                if(!isset($data->cep) || $data->cep == '' || strlen($data->cep) < 8){
                     $retorno .= " CEP vazio;";
                 }
             }
