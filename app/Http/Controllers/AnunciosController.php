@@ -308,6 +308,7 @@ class AnunciosController extends Controller
             $anuncio = SfAnuncio::find($adId);
         }        
         $anuncio->status = 1;
+        $anuncio->banheiros = $data->QtdBanheiros;
         $anuncio->flag_exclusao = 0;
         $anuncio->flag_anunciar = 1;
         $anuncio->id_imovel_integracao = '-'.$data->CodigoImovel;
