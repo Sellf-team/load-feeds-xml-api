@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 use App\Models\AnuncianteCarga;
 use App\Models\SfAnuncio;
 use App\Models\Estado;
@@ -537,7 +538,7 @@ class AnunciosController extends Controller
             $mail = new MailService();
             $sendMail = $mail->sendReportMail($bodyRequestMail);
         }
-        return 200;
+        return response()->json('Success', 200);
     }
 
     public function deletarFotosExcluidos($anuncios){
