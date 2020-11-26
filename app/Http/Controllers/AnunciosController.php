@@ -41,7 +41,7 @@ class AnunciosController extends Controller
         {
             $retornoValidacoes->codigoImovel = $data->CodigoImovel;
         }
-        if(strlen($data->Observacao) > 3000){
+        if(mb_strlen($data->Observacao) > 3000){
             $retorno .= " A descrição do imóvel deve ter entre 0 e 3000 caracteres;";
         }
         if(!isset($data->TipoImovel) || $data->TipoImovel == '')
