@@ -207,7 +207,7 @@ class AnunciosController extends Controller
     {        
         if($data->TipoImovel == "Comercial/Industrial" || str_contains(mb_strtolower($data->TipoImovel), 'comercial') || str_contains(mb_strtolower($data->TipoImovel), 'espaco corporativo') || str_contains(mb_strtolower($data->TipoImovel), 'espaço corporativo')){
             return 6;
-        }else if(str_contains(mb_strtolower($data->TipoImovel), 'flat') || str_contains(mb_strtolower($data->TipoImovel), 'apart') || str_contains(mb_strtolower($data->TipoImovel), 'cobertura') || str_contains(mb_strtolower($data->TipoImovel), 'apartamento')){
+        }else if(str_contains(mb_strtolower($data->TipoImovel), 'studio') || str_contains(mb_strtolower($data->TipoImovel), 'flat') || str_contains(mb_strtolower($data->TipoImovel), 'apart') || str_contains(mb_strtolower($data->TipoImovel), 'cobertura') || str_contains(mb_strtolower($data->TipoImovel), 'apartamento')){
             return 1;
         }else if(str_contains(mb_strtolower($data->TipoImovel), 'terreno') || $data->TipoImovel == "Terreno"){
             return 12;
