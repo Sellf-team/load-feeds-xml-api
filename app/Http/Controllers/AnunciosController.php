@@ -12,6 +12,7 @@ use App\Models\ResultadoCargaXml;
 use App\Models\SfAnuncioFoto;
 use App\Models\TipoImovel;
 use App\Services\MailService;
+use App\Services\CepService;
 use stdClass;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -48,11 +49,25 @@ class AnunciosController extends Controller
         {
             $retorno .= " Tipo do imóvel vazio;";
         }
+        
+        $validaCep = new CepService();
         if(!isset($data->CEP) || $data->CEP == '' || strlen($data->CEP) < 8){
             if(!isset($data->Cep) || $data->Cep == '' || strlen($data->Cep) < 8){
                 if(!isset($data->cep) || $data->cep == '' || strlen($data->cep) < 8){
                     $retorno .= " CEP vazio;";
+                }else if(!isset($data->cep) || $data->cep == '' || strlen($data->cep) < 8){
+                    if(!$validaCep->validateCep($data->cep)){
+                        $retorno .= " CEP inválido;";
+                    }
                 }
+            }else if(isset($data->cep) || $data->cep == '' || strlen($data->cep) < 8){
+                if(!$validaCep->validateCep($data->Cep)){
+                    $retorno .= " CEP inválido;";
+                }
+            }
+        }else if(isset($data->CEP) || $data->CEP == '' || strlen($data->CEP) < 8){
+            if(!$validaCep->validateCep($data->CEP)){
+                $retorno .= " CEP inválido;";
             }
         }
         if(!isset($data->SubTipoImovel) || $data->SubTipoImovel == '')
@@ -86,11 +101,46 @@ class AnunciosController extends Controller
         {
             $retorno .= " Preço de venda e Preço de Locação do imóvel vazios;";
         }
-        if(!isset($data->AreaUtil) || $data->AreaUtil == '' || $data->AreaUtil == '0' || $data->AreaUtil == 0)
-        {
-            $retorno .= " Área útil do imóvel vazia;";   
+
+        if($this->tipoImovel($data) == 1 || $this->tipoImovel($data) == 5 || $this->tipoImovel($data) == 6 || $this->tipoImovel($data) == 10){
+            if(!isset($data->AreaUtil) || $data->AreaUtil == '' || $data->AreaUtil == '0' || $data->AreaUtil == 0)
+            {
+                $retorno .= " Área útil do imóvel vazia;";   
+            }           
         }
 
+        if($this->tipoImovel($data) == 1 || $this->tipoImovel($data) == 5){
+            if($this->tipoAnuncio($data)->id == 2){
+                if($data->AreaUtil < 10 || $data->AreaUtil > 9999){
+                    $retorno .= " Área útil do imóvel deve estar entre 10 e 9999;";   
+                }
+            }else{
+                if($data->AreaUtil < 20 || $data->AreaUtil > 9999){
+                    $retorno .= " Área útil do imóvel deve estar entre 20 e 9999;";   
+                }
+            }
+        }
+
+        if($this->tipoImovel($data) == 1 || $this->tipoImovel($data) == 5){
+            if($this->tipoAnuncio($data)->id == 1){
+                if($data->AreaUtil < 15 || $data->AreaUtil > 9999){
+                    $retorno .= " Área útil do imóvel deve estar entre 15 e 9999;";   
+                }
+            }
+        }
+
+        if($this->tipoImovel($data) == 6){
+            if($data->AreaUtil < 4 || $data->AreaUtil > 999999){
+                $retorno .= " Área útil do imóvel deve estar entre 4 e 999999;";   
+            }
+        }
+
+        if($this->tipoImovel($data) == 8 || $this->tipoImovel($data) == 14){
+            if($data->AreaUtil < 2){
+                $retorno .= " Área útil do imóvel não pode ser menor que 2;";   
+            }
+        }
+        
         if($this->tipoImovel($data) == 1 || $this->tipoImovel($data) == 5 || $this->tipoImovel($data) == 7 || $this->tipoImovel($data) == 8){
             if(!isset($data->QtdBanheiros) || $data->QtdBanheiros == '')
             {
@@ -309,7 +359,7 @@ class AnunciosController extends Controller
             $anuncio = SfAnuncio::find($adId);
         }        
         $anuncio->status = 1;
-        $anuncio->banheiros = $data->QtdBanheiros;
+        $anuncio->banheiros = (int) $data->QtdBanheiros;
         $anuncio->flag_exclusao = 0;
         $anuncio->flag_anunciar = 1;
         $anuncio->id_imovel_integracao = '-'.$data->CodigoImovel;
