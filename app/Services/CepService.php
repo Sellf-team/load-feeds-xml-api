@@ -37,7 +37,7 @@ class CepService{
                 return false;
             }
         } catch (Exception $e) {
-            return false;
+            return true;
         }
         
 

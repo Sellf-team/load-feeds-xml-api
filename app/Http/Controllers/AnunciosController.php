@@ -107,6 +107,11 @@ class AnunciosController extends Controller
             {
                 $retorno .= " Área útil do imóvel vazia;";   
             }           
+        }else{
+            if(!isset($data->AreaTotal) || $data->AreaTotal == '' || $data->AreaTotal == '0' || $data->AreaTotal == 0)
+            {
+                $retorno .= " Área total do imóvel vazia;";   
+            }           
         }
 
         if($this->tipoImovel($data) == 1 || $this->tipoImovel($data) == 5){
@@ -390,7 +395,10 @@ class AnunciosController extends Controller
         $anuncio->valor= $this->formatarValorAnuncio($tipoAnuncio->valor);
         $anuncio->descricao = $this->removeChar($data->Observacao);
         $anuncio->condominio= $this->formatarValorAnuncio($data->PrecoCondominio);
-        $anuncio->area_util= $this->formatarAreaAnuncio($data->AreaUtil);
+        
+        if(!isset($data->AreaUtil) || $data->AreaUtil == '' || $data->AreaUtil == '0' || $data->AreaUtil == 0){
+            $anuncio->area_util= $this->formatarAreaAnuncio($data->AreaTotal);
+        }  
         
         if((int)$data->QtdDormitorios > 0){
             $anuncio->quartos = (int)$data->QtdDormitorios;
