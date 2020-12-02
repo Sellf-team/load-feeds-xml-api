@@ -210,7 +210,7 @@ class AnunciosController extends Controller
             $estado = Estado::where('nome', $data->Estado)->first();
         }
 
-        
+        $cidade = $this->removeChar($data->Cidade);
         $cidade = $estado->cidades()->where('nome', ucfirst(mb_strtolower($data->Cidade)))->first();
         if(empty($cidade))
         {
