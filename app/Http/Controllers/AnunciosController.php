@@ -514,10 +514,14 @@ class AnunciosController extends Controller
         $end->save();
         return;
     }
-    public function leituraXmlZap()
+    public function leituraXmlZap($id = null)
     {
         ini_set('max_execution_time', 72000);
-        $data = AnuncianteCarga::where('flag_leitura', 1)->get();
+        if(isset($id)){
+            $data = AnuncianteCarga::where('id', $id)->get()->first();
+        }else{
+            $data = AnuncianteCarga::where('flag_leitura', 1)->get();
+        }
         $xml_conteudo ='';
         $retorno =0 ;
         for ($i=0;$i<sizeof($data);$i++)

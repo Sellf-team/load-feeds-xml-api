@@ -12,6 +12,9 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+app()->router->get('/{id}', [
+    'uses' => 'AnunciosController@leituraXmlZap'
+]);
 app()->router->get('/', [
     'uses' => 'AnunciosController@leituraXmlZap'
 ]);
