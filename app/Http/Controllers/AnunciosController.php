@@ -516,6 +516,7 @@ class AnunciosController extends Controller
     }
     public function leituraXmlZap($anuncianteId = null)
     {
+        dd($anuncianteId);
         ini_set('max_execution_time', 72000);
         if(isset($anuncianteId)){
             $data = AnuncianteCarga::where('anunciante_id', $anuncianteId)->get();
