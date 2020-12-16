@@ -397,8 +397,14 @@ class AnunciosController extends Controller
         $anuncio->condominio= $this->formatarValorAnuncio($data->PrecoCondominio);
         
         if(!isset($data->AreaUtil) || $data->AreaUtil == '' || $data->AreaUtil == '0' || $data->AreaUtil == 0){
-            $anuncio->area_util= $this->formatarAreaAnuncio($data->AreaTotal);
-        }  
+            if(!isset($data->AreaTotal) || $data->AreaTotal == '' || $data->AreaTotal == '0' || $data->AreaTotal == 0){
+                $anuncio->area_util= $this->formatarAreaAnuncio($data->AreaTotal);
+            }else{
+                $anuncio->area_util= $data->AreaTotal;
+            }
+        }else{
+            $anuncio->area_util= $data->AreaUtil;
+        }
         
         if((int)$data->QtdDormitorios > 0){
             $anuncio->quartos = (int)$data->QtdDormitorios;
