@@ -210,32 +210,43 @@ class AnunciosController extends Controller
             $estado = Estado::where('nome', $data->Estado)->first();
         }
 
-        $cidade = $this->removeChar($data->Cidade);
-        $cidade = $estado->cidades()->where('nome', ucfirst(mb_strtolower($data->Cidade)))->first();
-        if(empty($cidade))
-        {
-            $ultimaCidade = DB::table('cidade')->orderBy('id', 'desc')->first();
-            $newCidade = new Cidade();
-            $newCidade->id = $ultimaCidade->id + 1;
-            $newCidade->nome = $this->removeChar($data->Cidade);
-            $newCidade->estado_id = $estado->id;
-            $newCidade->save();
-            
-            $retorno->sucesso = 1;
-            $retorno->id_cidade = $newCidade->id;
-            $retorno->nome_cidade = $newCidade->nome;
-            $retorno->id_estado = $estado->id;
-        }
-        else
-        {
-            $retorno->sucesso = 1;
-            $retorno->id_cidade = $cidade->id;
-            $retorno->nome_cidade = $cidade->nome;
-            $retorno->id_estado = $estado->id;
+        $cidade = new CepService();
+        if(isset($data->CEP) || $data->CEP != ''){
+            $cidade = $cidade->getCityCep($data->CEP);
         }
         
-        return  $retorno;
-
+        if(isset($data->Cep) || $data->Cep != ''){
+            $cidade = $cidade->getCityCep($data->Cep);
+        }        
+        
+        if(isset($data->cep) || $data->cep != ''){
+            $cidade = $cidade->getCityCep($data->cep);
+        }
+        if($cidade){
+            $cidadeBd = $estado->cidades()->where('nome', $cidade)->first();
+            if(empty($cidadeBd))
+            {
+                $ultimaCidade = DB::table('cidade')->orderBy('id', 'desc')->first();
+                $newCidade = new Cidade();
+                $newCidade->id = $ultimaCidade->id + 1;
+                $newCidade->nome = $this->removeChar($data->Cidade);
+                $newCidade->estado_id = $estado->id;
+                $newCidade->save();
+                
+                $retorno->sucesso = 1;
+                $retorno->id_cidade = $newCidade->id;
+                $retorno->nome_cidade = $newCidade->nome;
+                $retorno->id_estado = $estado->id;
+            }
+            else
+            {
+                $retorno->sucesso = 1;
+                $retorno->id_cidade = $cidadeBd->id;
+                $retorno->nome_cidade = $cidadeBd->nome;
+                $retorno->id_estado = $estado->id;
+            }
+            return  $retorno;
+        }     
     }
     public function statusAnuncio($anuncianteId)
     {
