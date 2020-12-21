@@ -229,7 +229,7 @@ class AnunciosController extends Controller
                 $ultimaCidade = DB::table('cidade')->orderBy('id', 'desc')->first();
                 $newCidade = new Cidade();
                 $newCidade->id = $ultimaCidade->id + 1;
-                $newCidade->nome = $this->removeChar($data->Cidade);
+                $newCidade->nome = $cidade;
                 $newCidade->estado_id = $estado->id;
                 $newCidade->save();
                 
@@ -245,8 +245,20 @@ class AnunciosController extends Controller
                 $retorno->nome_cidade = $cidadeBd->nome;
                 $retorno->id_estado = $estado->id;
             }
-            return  $retorno;
-        }     
+        } else{
+            $ultimaCidade = DB::table('cidade')->orderBy('id', 'desc')->first();
+            $newCidade = new Cidade();
+            $newCidade->id = $ultimaCidade->id + 1;
+            $newCidade->nome = $this->removeChar($data->Cidade);
+            $newCidade->estado_id = $estado->id;
+            $newCidade->save();
+            
+            $retorno->sucesso = 1;
+            $retorno->id_cidade = $newCidade->id;
+            $retorno->nome_cidade = $newCidade->nome;
+            $retorno->id_estado = $estado->id;
+        }    
+        return  $retorno;
     }
     public function statusAnuncio($anuncianteId)
     {
