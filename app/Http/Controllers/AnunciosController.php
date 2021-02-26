@@ -225,6 +225,7 @@ class AnunciosController extends Controller
             $retorno->id_cidade = $newCidade->id;
             $retorno->nome_cidade = $newCidade->nome;
             $retorno->id_estado = $estado->id;
+            dd($retorno);
         }
         else
         {
@@ -400,10 +401,10 @@ class AnunciosController extends Controller
             if(!isset($data->AreaTotal) || $data->AreaTotal == '' || $data->AreaTotal == '0' || $data->AreaTotal == 0){
                 $anuncio->area_util= $this->formatarAreaAnuncio($data->AreaTotal);
             }else{
-                $anuncio->area_util= $data->AreaTotal;
+                $anuncio->area_util= $this->formatarAreaUtilAnuncio($data->AreaTotal);
             }
         }else{
-            $anuncio->area_util= $data->AreaUtil;
+            $anuncio->area_util= $this->formatarAreaUtilAnuncio($data->AreaUtil);
         }
         
         if((int)$data->QtdDormitorios > 0){
@@ -827,5 +828,10 @@ class AnunciosController extends Controller
         return preg_replace("/[^0-9]/", "", $valor);
     }
 
-
+    public function formatarAreaUtilAnuncio($valor){
+        if(mb_strpos($valor, ',')){
+            $valor = explode(',', $valor)[0];
+        }
+        return $valor;
+    }
 }
