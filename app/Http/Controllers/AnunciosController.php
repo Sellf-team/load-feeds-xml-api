@@ -225,7 +225,6 @@ class AnunciosController extends Controller
             $retorno->id_cidade = $newCidade->id;
             $retorno->nome_cidade = $newCidade->nome;
             $retorno->id_estado = $estado->id;
-            dd($retorno);
         }
         else
         {
