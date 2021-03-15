@@ -478,7 +478,9 @@ class AnunciosController extends Controller
             
             try
             {
-                $conteudoImg = file_get_contents($data->Fotos->Foto[$i]->URLArquivo);
+                var_dump($data->Fotos->Foto[$i]);
+                var_dump("<br />");
+                $conteudoImg = $this->sellf_file_get_contents($data->Fotos->Foto[$i]->URLArquivo);
                 
                 Storage::disk('custom')->put($basePathSave, $conteudoImg);
                 
@@ -502,6 +504,7 @@ class AnunciosController extends Controller
             }
             catch (\Exception $e)
             {
+                dd($e);
                 $posicaoFoto = $i + 1;
                 $erro = new RelatorioCargaXml();
                 $erro->anunciante_id = $anuncianteId;
@@ -523,6 +526,20 @@ class AnunciosController extends Controller
         $end->save();
         return;
     }
+    
+    public function sellf_file_get_contents($site_url){
+        $ch = curl_init();
+        $timeout = 5;
+        curl_setopt ($ch, CURLOPT_URL, $site_url);
+        curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        ob_start();
+        curl_exec($ch);
+        curl_close($ch);
+        $file_contents = ob_get_contents();
+        ob_end_clean();
+        return $file_contents;
+    }
+
     public function leituraXmlZap($anuncianteId = null)
     {
         ini_set('max_execution_time', 72000);
