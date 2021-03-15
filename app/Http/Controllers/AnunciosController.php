@@ -485,9 +485,12 @@ class AnunciosController extends Controller
                 $anuncioFoto = new SfAnuncioFoto();
                 $anuncioFoto->sf_anuncio_id = $id ;
                 $anuncioFoto->imagem = $basePathSave;
-                
                 if($data->Fotos->Foto[$i]->Principal){                    
-                    $anuncioFoto->principal = $data->Fotos->Foto[$i]->Principal;
+                    if(is_int($data->Fotos->Foto[$i]->Principal)){
+                        $anuncioFoto->principal = $data->Fotos->Foto[$i]->Principal;
+                    }else{
+                        $anuncioFoto->principal = 0;
+                    }
                 }else{
                     $anuncioFoto->principal = 0;
                 }
@@ -499,6 +502,7 @@ class AnunciosController extends Controller
             }
             catch (\Exception $e)
             {
+                dd($e);
                 $posicaoFoto = $i + 1;
                 $erro = new RelatorioCargaXml();
                 $erro->anunciante_id = $anuncianteId;
