@@ -502,7 +502,6 @@ class AnunciosController extends Controller
             }
             catch (\Exception $e)
             {
-                dd($e);
                 $posicaoFoto = $i + 1;
                 $erro = new RelatorioCargaXml();
                 $erro->anunciante_id = $anuncianteId;
