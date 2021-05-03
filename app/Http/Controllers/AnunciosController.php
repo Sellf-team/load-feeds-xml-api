@@ -560,6 +560,12 @@ class AnunciosController extends Controller
             // $infoPacote->save();
 
             try {                
+                $context = stream_context_create(array('ssl'=>array(
+                    'verify_peer' => false, 
+                    "verify_peer_name"=>false
+                    )));
+                
+                libxml_set_streams_context($context);
                 $xml_conteudo  = simplexml_load_file($data[$i]->url);
             } catch (\Exception $e) {
                 dd($e);
