@@ -27,6 +27,7 @@ class AnuncianteCarga extends Model
     public $fillable = [
         'anunciante_id',
         'url',
+        'flag_leitura',
         'created_at',
         'updated_at'
     ];

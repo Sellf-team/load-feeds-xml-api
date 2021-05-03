@@ -537,14 +537,10 @@ class AnunciosController extends Controller
         return $file_contents;
     }
 
-    public function leituraXmlZap($anuncianteId = null)
+    public function leituraXmlZap()
     {
         ini_set('max_execution_time', 72000);
-        if(isset($anuncianteId)){
-            $data = AnuncianteCarga::where('anunciante_id', $anuncianteId)->get();
-        }else{
-            $data = AnuncianteCarga::where('flag_leitura', 1)->get();
-        }
+        $data = AnuncianteCarga::where('flag_leitura', 1)->get();
         $xml_conteudo ='';
         $retorno =0 ;
         for ($i=0;$i<sizeof($data);$i++)
@@ -605,6 +601,10 @@ class AnunciosController extends Controller
             SfAnuncio::where('flag_exclusao', 1)
             ->where('anunciante_id', $data[$i]->anunciante_id)
             ->update(['flag_exclusao' => 0]);
+
+            SfAnuncio::where('flag_exclusao', 1)
+            ->where('anunciante_id', $data[$i]->anunciante_id)
+            ->update(['flag_anunciar' => 0]);
 
             if(is_null($affected)){
                 $affected = 0;
