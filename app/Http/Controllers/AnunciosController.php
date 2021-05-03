@@ -562,6 +562,7 @@ class AnunciosController extends Controller
             try {                
                 $xml_conteudo  = simplexml_load_file($data[$i]->url);
             } catch (\Exception $e) {
+                dd($e);
                 continue;
             }
 
