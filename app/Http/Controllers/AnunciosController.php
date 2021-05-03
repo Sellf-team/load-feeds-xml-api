@@ -541,6 +541,7 @@ class AnunciosController extends Controller
     {
         ini_set('max_execution_time', 72000);
         $data = AnuncianteCarga::where('flag_leitura', 1)->get();
+        var_dump($data);
         $xml_conteudo ='';
         $retorno =0 ;
         for ($i=0;$i<sizeof($data);$i++)
