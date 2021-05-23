@@ -258,7 +258,7 @@ class AnunciosController extends Controller
         } catch (Exception $e) {
             echo '<br />';
             echo '======================================';
-            echo 'Exceção unidades';
+            echo 'Exceção unidades+';
             var_dump($e);
             echo '<br />';
             echo '======================================';
@@ -266,10 +266,24 @@ class AnunciosController extends Controller
     }
     public function RollbackAnuncio($anuncianteId)
     {
-        $infoPacote = AnuncianteProfissionalPacote::where('anunciante_id',$anuncianteId)->first();
-        $infoPacote->unidades = $infoPacote->unidades + 1;
-        $infoPacote->save();
-        return 0;
+        try {
+            $infoPacote = AnuncianteProfissionalPacote::where('anunciante_id',$anuncianteId)->first();
+            if(is_object($infoPacote)){
+                $infoPacote->unidades = $infoPacote->unidades + 1;
+                $infoPacote->save();
+                return 0;
+            }else{
+                return 0;
+            }
+        } catch (Exception $e) {
+            echo '<br />';
+            echo '======================================';
+            echo 'Exceção unidades-';
+            var_dump($e);
+            echo '<br />';
+            echo '======================================';
+        }
+        
     }
     public function tipoImovel($data)
     {        
