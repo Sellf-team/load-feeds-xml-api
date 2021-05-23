@@ -254,6 +254,9 @@ class AnunciosController extends Controller
                 }
             }else{
                 return 0;
+                echo '<br />';
+                echo '======================================';
+                echo 'Exceção unidades + else';
             }
         } catch (Exception $e) {
             echo '<br />';
@@ -274,6 +277,9 @@ class AnunciosController extends Controller
                 return 0;
             }else{
                 return 0;
+                echo '<br />';
+                echo '======================================';
+                echo 'Exceção unidades - else';
             }
         } catch (Exception $e) {
             echo '<br />';
