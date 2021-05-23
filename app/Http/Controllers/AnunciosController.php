@@ -240,7 +240,17 @@ class AnunciosController extends Controller
     public function statusAnuncio($anuncianteId)
     {
         try {
-            //code...
+            $infoPacote = AnuncianteProfissionalPacote::where('anunciante_id',$anuncianteId)->first();
+            if($infoPacote->unidades == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                $infoPacote->unidades--;
+                $infoPacote->save();
+                return 1;
+            }
         } catch (Exception $e) {
             echo '<br />';
             echo '======================================';
@@ -248,17 +258,6 @@ class AnunciosController extends Controller
             var_dump($e);
             echo '<br />';
             echo '======================================';
-        }
-        $infoPacote = AnuncianteProfissionalPacote::where('anunciante_id',$anuncianteId)->first();
-        if($infoPacote->unidades == 0)
-        {
-            return 0;
-        }
-        else
-        {
-            $infoPacote->unidades--;
-            $infoPacote->save();
-            return 1;
         }
     }
     public function RollbackAnuncio($anuncianteId)
