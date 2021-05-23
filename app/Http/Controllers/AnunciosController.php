@@ -239,6 +239,16 @@ class AnunciosController extends Controller
     }
     public function statusAnuncio($anuncianteId)
     {
+        try {
+            //code...
+        } catch (Exception $e) {
+            echo '<br />';
+            echo '======================================';
+            echo 'Exceção unidades';
+            var_dump($e);
+            echo '<br />';
+            echo '======================================';
+        }
         $infoPacote = AnuncianteProfissionalPacote::where('anunciante_id',$anuncianteId)->first();
         if($infoPacote->unidades == 0)
         {
@@ -567,13 +577,13 @@ class AnunciosController extends Controller
                 libxml_set_streams_context($context);
                 $xml_conteudo  = simplexml_load_file($data[$i]->url);
             } catch (\Exception $e) {
-                var_dump('<br />');
-                var_dump('======================================');
-                var_dump('<br />');
+                echo '<br />';
+                echo '======================================';
+                echo '<br />';
                 var_dump($e);
-                var_dump('<br />');
-                var_dump('======================================');
-                var_dump('<br />');
+                echo '<br />';
+                echo '======================================';
+                echo '<br />';
                 continue;
             }
 
