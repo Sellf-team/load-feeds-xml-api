@@ -241,15 +241,19 @@ class AnunciosController extends Controller
     {
         try {
             $infoPacote = AnuncianteProfissionalPacote::where('anunciante_id',$anuncianteId)->first();
-            if($infoPacote->unidades == 0)
-            {
+            if(is_object($infoPacote)){
+                if($infoPacote->unidades == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    $infoPacote->unidades--;
+                    $infoPacote->save();
+                    return 1;
+                }
+            }else{
                 return 0;
-            }
-            else
-            {
-                $infoPacote->unidades--;
-                $infoPacote->save();
-                return 1;
             }
         } catch (Exception $e) {
             echo '<br />';
