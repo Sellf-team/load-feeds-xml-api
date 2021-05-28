@@ -877,10 +877,12 @@ class AnunciosController extends Controller
     }
 
     public function formatarValorAnuncio($valor){        
-        if(strlen(explode('.', $valor)[1]) == 2){
-            $valor = explode('.', $valor);
-            return $valor[0];
-        }
+        echo explode('.', $valor);
+        echo '<br />';
+        // if(strlen(explode('.', $valor)[1]) == 2){
+        //     $valor = explode('.', $valor);
+        //     return $valor[0];
+        // }
         $valor = str_replace('.', '', $valor);
         $valor = explode(',', $valor);
         $valor = $valor[0];
